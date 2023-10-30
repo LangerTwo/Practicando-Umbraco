@@ -1,0 +1,25 @@
+@inherits UmbracoViewPage<BlockListItem>
+
+@{
+    var row = (FeaturedItemsRow)Model.Content;
+    var settings = (FeaturedItemsRowSettings)Model.Settings;
+    if(settings?.Hide ?? false) {return;}
+    if(row.FeaturedItems == null || !row.FeaturedItems.Any()) return;
+}
+
+<div class="row gx-4 gx-lg-5 justify-content-center">
+    @foreach(var item in row.FeaturedItems) {
+        var rowItem = (ImageLinkItem)item.Content;
+        var rowSettings = (ImageLinkItemSettings)item.Settings;
+        if(rowSettings.Hide) continue;
+
+        <div class="card col-md-4 col-sm-12">
+            <img src="@rowItem.Image.Url()" class="card-img-top" alt="pokemon">
+            <div class="card-body">
+                <h5 class="card-title">Card Title</h5>
+                <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Libero, quibusdam.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+    }
+</div>
