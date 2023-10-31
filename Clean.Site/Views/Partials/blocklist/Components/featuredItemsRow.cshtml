@@ -8,18 +8,32 @@
 }
 
 <div class="row gx-4 gx-lg-5 justify-content-center">
-    @foreach(var item in row.FeaturedItems) {
-        var rowItem = (ImageLinkItem)item.Content;
-        var rowSettings = (ImageLinkItemSettings)item.Settings;
-        if(rowSettings.Hide) continue;
+        <header class="text-center">
+            <h2>@row.Title</h2>
+            <p>@row.Description</p>
+        </header>
+    <div class="d-flex justify-content-center">
+        @foreach(var item in row.FeaturedItems) {
+            var rowItem = (ImageLinkItem)item.Content;
+            var rowSettings = (ImageLinkItemSettings)item.Settings;
+            if(rowSettings.Hide) continue;
 
-        <div class="card col-md-4 col-sm-12">
-            <img src="@rowItem.Image.Url()" class="card-img-top" alt="pokemon">
-            <div class="card-body">
-                <h5 class="card-title">Card Title</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Libero, quibusdam.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+            <div class="card col-md-4 col-sm-12 me-2">
+                @if(rowItem.Image != null){
+                <img src="@rowItem.Image.Url()" class="card-img-top" alt="@rowItem.Image.Name" style="height: 210.5px;">
+                }
+                <div class="card-body">
+                    @if(!string.IsNullOrWhiteSpace(rowItem.Title)) {
+                        <h5 class="card-title">@rowItem.Title</h5>
+                    }
+                    @if(!string.IsNullOrWhiteSpace(rowItem.Description)){
+                        <p class="card-text">@rowItem.Description</p>
+                    }
+                    @if(rowItem.Link != null){
+                        <a href="@rowItem.Link.Url" target="@rowItem.Link.Target" class="btn btn-primary">@rowItem.Link.Name</a>
+                    }
+                </div>
             </div>
-        </div>
-    }
+        }
+    </div>
 </div>
