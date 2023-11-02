@@ -1,17 +1,24 @@
 ﻿@inherits UmbracoViewPage<BlockListItem>
 
 @{
-    var row = (ImageRow)Model.Content;
-    var settings = (ImageRowSettings)Model.Settings;
+    var row = (QuoteRow)Model.Content;
+    var settings = (QuoteRowSettings)Model.Settings;
     if(settings?.Hide ?? false) {return;}
-    if(row.Image == null) return;
 }
 
 <div class="row gx-4 gx-lg-5 justify-content-center bg-light text-end">
     <figure>
-        <blockquote cite="https://www.brainyquote.com/quotes/earl_nightingale">
-            <p>Don't let the fear of the time it will take to accomplish something stand in the way of your doing it.<br/> The time will pass anyway; we might just as well put that passing time to the best possible use.</p>
+        <blockquote cite="@(row.CiteLink != null ? row.CiteLink : null)">
+            @row.QuoteText
         </blockquote>
-        <figcaption>Earl Nightingale, <cite>American radio speaker and author</cite></figcaption>
+        @if(!string.IsNullOrWhiteSpace(row.QuoteAuthor)){
+            <figcaption>-@row.QuoteAuthor
+                @if(!string.IsNullOrWhiteSpace(row.AuthorJobTitle)){
+                    <cite>
+                        @row.AuthorJobTitle
+                    </cite>
+                } 
+            </figcaption>
+        }
     </figure>
 </div>
