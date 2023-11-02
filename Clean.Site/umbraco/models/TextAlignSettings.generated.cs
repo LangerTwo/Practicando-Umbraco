@@ -18,14 +18,24 @@ using Umbraco.Extensions;
 
 namespace Umbraco.Cms.Web.Common.PublishedModels
 {
-	/// <summary>Quote Row Settings</summary>
-	[PublishedModel("quoteRowSettings")]
-	public partial class QuoteRowSettings : PublishedElementModel, IBlockVisibilitySettings, ITextAlignSettings
+	// Mixin Content Type with alias "textAlignSettings"
+	/// <summary>Text Align Settings</summary>
+	public partial interface ITextAlignSettings : IPublishedElement
+	{
+		/// <summary>Text Alignment</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "10.1.0+3972538")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		string TextAlignment { get; }
+	}
+
+	/// <summary>Text Align Settings</summary>
+	[PublishedModel("textAlignSettings")]
+	public partial class TextAlignSettings : PublishedElementModel, ITextAlignSettings
 	{
 		// helpers
 #pragma warning disable 0109 // new is redundant
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "10.1.0+3972538")]
-		public new const string ModelTypeAlias = "quoteRowSettings";
+		public new const string ModelTypeAlias = "textAlignSettings";
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "10.1.0+3972538")]
 		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "10.1.0+3972538")]
@@ -34,14 +44,14 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 			=> PublishedModelUtility.GetModelContentType(publishedSnapshotAccessor, ModelItemType, ModelTypeAlias);
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "10.1.0+3972538")]
 		[return: global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		public static IPublishedPropertyType GetModelPropertyType<TValue>(IPublishedSnapshotAccessor publishedSnapshotAccessor, Expression<Func<QuoteRowSettings, TValue>> selector)
+		public static IPublishedPropertyType GetModelPropertyType<TValue>(IPublishedSnapshotAccessor publishedSnapshotAccessor, Expression<Func<TextAlignSettings, TValue>> selector)
 			=> PublishedModelUtility.GetModelPropertyType(GetModelContentType(publishedSnapshotAccessor), selector);
 #pragma warning restore 0109
 
 		private IPublishedValueFallback _publishedValueFallback;
 
 		// ctor
-		public QuoteRowSettings(IPublishedElement content, IPublishedValueFallback publishedValueFallback)
+		public TextAlignSettings(IPublishedElement content, IPublishedValueFallback publishedValueFallback)
 			: base(content, publishedValueFallback)
 		{
 			_publishedValueFallback = publishedValueFallback;
@@ -50,18 +60,16 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		// properties
 
 		///<summary>
-		/// Hide: Set this to true if you want to hide this item
-		///</summary>
-		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "10.1.0+3972538")]
-		[ImplementPropertyType("hide")]
-		public virtual bool Hide => global::Umbraco.Cms.Web.Common.PublishedModels.BlockVisibilitySettings.GetHide(this, _publishedValueFallback);
-
-		///<summary>
 		/// Text Alignment: Choose the text alignment for this item
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "10.1.0+3972538")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("textAlignment")]
-		public virtual string TextAlignment => global::Umbraco.Cms.Web.Common.PublishedModels.TextAlignSettings.GetTextAlignment(this, _publishedValueFallback);
+		public virtual string TextAlignment => GetTextAlignment(this, _publishedValueFallback);
+
+		/// <summary>Static getter for Text Alignment</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "10.1.0+3972538")]
+		[return: global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		public static string GetTextAlignment(ITextAlignSettings that, IPublishedValueFallback publishedValueFallback) => that.Value<string>(publishedValueFallback, "textAlignment");
 	}
 }

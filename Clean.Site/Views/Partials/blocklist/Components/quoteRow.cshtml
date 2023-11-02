@@ -6,13 +6,13 @@
     if(settings?.Hide ?? false) {return;}
 }
 
-<div class="row gx-4 gx-lg-5 justify-content-center bg-light text-end">
-    <figure>
+<div class="row gx-4 gx-lg-5 mt-5 justify-content-center bg-light text-end">
+    <figure class="@(!string.IsNullOrWhiteSpace(settings.TextAlignment) ? settings.TextAlignment : null)">
         <blockquote cite="@(row.CiteLink != null ? row.CiteLink : null)">
             @row.QuoteText
         </blockquote>
         @if(!string.IsNullOrWhiteSpace(row.QuoteAuthor)){
-            <figcaption>-@row.QuoteAuthor
+            <figcaption>-@row.QuoteAuthor 
                 @if(!string.IsNullOrWhiteSpace(row.AuthorJobTitle)){
                     <cite>
                         @row.AuthorJobTitle
